@@ -6,62 +6,81 @@ import {
     ImageBackground,
     Animated,
 } from 'react-native';
+
+import Header from '../components/Header';
 import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
-import Header from '../components/Header';
 import useFadeIn from '../hooks/useFadeIn';
+import type { MentiFormData } from '../types/forms';
 
-export default function MentiFormScreen({ onBack, onNext }) {
-    const [name, setName] = useState('');
-    const [goal, setGoal] = useState('');
-    const [level, setLevel] = useState('');
-    const fadeInForm = useFadeIn();
+
+/* ========= TYPES ========= */
+
+type Props = {
+    step: number;
+    totalSteps: number;
+    initialValues?: Partial<MentiFormData>;
+    onBack: () => void;
+    onNext?: (data: MentiFormData) => void;
+};
+
+/* ========= COMPONENT ========= */
+
+export default function MentiFormScreen({
+                                            step,
+                                            totalSteps,
+                                            initialValues = {},
+                                            onBack,
+                                            onNext,
+                                        }: Props) {
+    const fadeIn = useFadeIn();
+
+    const [name, setName] = useState(initialValues.name ?? '');
+    const [goal, setGoal] = useState(initialValues.goal ?? '');
+    const [level, setLevel] = useState(initialValues.level ?? '');
+
+    const handleNext = () => {
+        onNext?.({ name, goal, level });
+    };
 
     return (
         <ImageBackground
             source={require('../assets/select-bg.png')}
             style={styles.bg}
-            resizeMode="cover"
         >
             <View style={styles.overlay} />
 
             <View style={styles.screen}>
                 <Header
                     title="Анкета менти"
-                    step={1}
-                    totalSteps={2}
+                    step={step}
+                    totalSteps={totalSteps}
                     onBack={onBack}
                 />
 
-                <Animated.View style={[styles.content, fadeInForm]}>
-                    <ScrollView
-                        contentContainerStyle={styles.content}
-                        showsVerticalScrollIndicator={false}
-                    >
+                <Animated.View style={[styles.content, fadeIn]}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
                         <InputField
                             label="Імʼя"
-                            placeholder="Ваше імʼя"
                             value={name}
                             onChangeText={setName}
                         />
 
                         <InputField
                             label="Ціль навчання"
-                            placeholder="Що хочете вивчити?"
                             value={goal}
                             onChangeText={setGoal}
                         />
 
                         <InputField
                             label="Рівень"
-                            placeholder="Junior / Middle / Beginner"
                             value={level}
                             onChangeText={setLevel}
                         />
 
                         <CustomButton
                             title="Продовжити"
-                            onPress={onNext}
+                            onPress={handleNext}
                             style={{ marginTop: 24 }}
                         />
                     </ScrollView>
@@ -71,6 +90,8 @@ export default function MentiFormScreen({ onBack, onNext }) {
     );
 }
 
+/* ========= STYLES ========= */
+
 const styles = StyleSheet.create({
     bg: { flex: 1 },
     overlay: {
@@ -78,9 +99,5 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.12)',
     },
     screen: { flex: 1 },
-    animatedContent: { flex: 1 },
-    content: {
-        padding: 20,
-        paddingBottom: 40,
-    },
+    content: { flex: 1, padding: 20 },
 });

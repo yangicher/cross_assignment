@@ -6,62 +6,78 @@ import {
     ImageBackground,
     Animated,
 } from 'react-native';
+
 import Header from '../components/Header';
 import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
-import useFadeIn from "../hooks/useFadeIn";
+import useFadeIn from '../hooks/useFadeIn';
+import type { MentorFormData } from '../types/forms';
 
-export default function MentorFormScreen({ onBack, onNext }) {
-    const [name, setName] = useState('');
-    const [position, setPosition] = useState('');
-    const [experience, setExperience] = useState('');
+type Props = {
+    step: number;
+    totalSteps: number;
+    initialValues?: Partial<MentorFormData>;
+    onBack: () => void;
+    onNext?: (data: MentorFormData) => void;
+};
 
-    const fadeInForm = useFadeIn();
+export default function MentorFormScreen({
+                                             step,
+                                             totalSteps,
+                                             initialValues = {},
+                                             onBack,
+                                             onNext,
+                                         }: Props) {
+    const fadeIn = useFadeIn();
+
+    const [name, setName] = useState(initialValues.name ?? '');
+    const [experience, setExperience] = useState(
+        initialValues.experience ?? ''
+    );
+    const [stack, setStack] = useState(initialValues.stack ?? '');
+
+    const handleNext = () => {
+        onNext?.({ name, experience, stack });
+    };
+
     return (
         <ImageBackground
             source={require('../assets/select-bg.png')}
             style={styles.bg}
-            resizeMode="cover"
         >
             <View style={styles.overlay} />
 
             <View style={styles.screen}>
                 <Header
                     title="Анкета ментора"
-                    step={1}
-                    totalSteps={2}
+                    step={step}
+                    totalSteps={totalSteps}
                     onBack={onBack}
                 />
 
-                <Animated.View style={[styles.content, fadeInForm]}>
-                    <ScrollView
-                        contentContainerStyle={styles.content}
-                        showsVerticalScrollIndicator={false}
-                    >
+                <Animated.View style={[styles.content, fadeIn]}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
                         <InputField
                             label="Імʼя"
-                            placeholder="Ваше імʼя"
                             value={name}
                             onChangeText={setName}
                         />
 
                         <InputField
-                            label="Посада"
-                            placeholder="Наприклад, Senior Frontend"
-                            value={position}
-                            onChangeText={setPosition}
-                        />
-
-                        <InputField
                             label="Досвід"
-                            placeholder="Наприклад, 5 років"
                             value={experience}
                             onChangeText={setExperience}
                         />
 
+                        <InputField
+                            label="Стек"
+                            value={stack}
+                            onChangeText={setStack}
+                        />
+
                         <CustomButton
                             title="Продовжити"
-                            onPress={onNext}
+                            onPress={handleNext}
                             style={{ marginTop: 24 }}
                         />
                     </ScrollView>
@@ -78,9 +94,5 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.12)',
     },
     screen: { flex: 1 },
-    animatedContent: { flex: 1 },
-    content: {
-        padding: 20,
-        paddingBottom: 40,
-    },
+    content: { flex: 1, padding: 20 },
 });

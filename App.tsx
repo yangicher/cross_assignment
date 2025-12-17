@@ -56,7 +56,13 @@ export default function App() {
             case 'menti':
                 return (
                     <MentiFormScreen
+                        step={1}
+                        totalSteps={2}
                         onBack={() => navigate('select')}
+                        onNext={(data) => {
+                            console.log('Menti data:', data);
+                            navigate('mentor'); // або куди треба
+                        }}
                     />
                 );
 
@@ -106,7 +112,13 @@ export default function App() {
                                 case 'menti':
                                     return (
                                         <MentiFormScreen
+                                            step={1}
+                                            totalSteps={2}
                                             onBack={() => navigate('select')}
+                                            onNext={(data) => {
+                                                console.log('Menti data:', data);
+                                                navigate('mentor'); // або куди треба
+                                            }}
                                         />
                                     );
                                 default:

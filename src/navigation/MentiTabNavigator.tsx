@@ -8,6 +8,7 @@ import MessagesScreen from '../screens/common/MessagesScreen';
 import ProfileScreen from '../screens/common/ProfileScreen';
 import SettingsScreen from '../screens/menti/SettingsScreen';
 import { Ionicons } from '@expo/vector-icons';
+import MentorsListTabScreen from "../screens/menti/MentorsListTabScreen.tsx";
 
 const Tab = createBottomTabNavigator();
 
@@ -71,10 +72,10 @@ export default function MentiTabNavigator() {
             />
 
             <Tab.Screen
-                name="Profile"
-                component={ProfileScreen}
+                name="Mentors"
+                component={MentorsListTabScreen}
                 options={{
-                    tabBarLabel: 'Профіль',
+                    tabBarLabel: 'Ментори',
                     tabBarIcon: ({ focused, color, size }) => (
                         <Ionicons
                             name={focused ? 'person' : 'person-outline'}

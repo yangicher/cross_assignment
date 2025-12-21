@@ -5,15 +5,15 @@ import AppTopBar from '../components/AppTopBar';
 import MentiHomeScreen from '../screens/menti/MentiHomeScreen';
 import MentiCalendarScreen from '../screens/menti/MentiCalendarScreen';
 import MessagesScreen from '../screens/common/MessagesScreen';
-import ProfileScreen from '../screens/common/ProfileScreen';
 import SettingsScreen from '../screens/menti/SettingsScreen';
 import { Ionicons } from '@expo/vector-icons';
-import MentorsListTabScreen from "../screens/menti/MentorsListTabScreen.tsx";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MentorsNavigator from "./MentorsNavigator.tsx";
 
 const Tab = createBottomTabNavigator();
 
 export default function MentiTabNavigator() {
+    const insets = useSafeAreaInsets();
     return (
         <Tab.Navigator
             screenOptions={{
@@ -21,8 +21,8 @@ export default function MentiTabNavigator() {
                 tabBarActiveTintColor: '#7B61FF',
                 tabBarInactiveTintColor: '#9CA3AF',
                 tabBarStyle: {
-                    height: 64,
-                    paddingBottom: 8,
+                    height: 64 + insets.bottom,
+                    paddingBottom: 8 + insets.bottom,
                     paddingTop: 8,
                 },
             }}

@@ -4,11 +4,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import MentorTabNavigator from './MentorTabNavigator';
 import MentiTabNavigator from './MentiTabNavigator';
 
-import MentorsNavigator from './MentorsNavigator';
-
 export type AppDrawerParamList = {
     MainTabs: undefined;
-    MentorsFlow: undefined;
 };
 
 const Drawer = createDrawerNavigator<AppDrawerParamList>();
@@ -18,6 +15,7 @@ type Props = {
 };
 
 export default function AppDrawerNavigator({ role }: Props) {
+    console.log("AppDrawerNavigator role: " + role);
     return (
         <Drawer.Navigator
             screenOptions={{
@@ -29,11 +27,6 @@ export default function AppDrawerNavigator({ role }: Props) {
             <Drawer.Screen
                 name="MainTabs"
                 component={role === 'mentor' ? MentorTabNavigator : MentiTabNavigator}
-            />
-            <Drawer.Screen
-                name="MentorsFlow"
-                component={MentorsNavigator}
-                options={{ title: 'Знайти ментора' }}
             />
         </Drawer.Navigator>
     );

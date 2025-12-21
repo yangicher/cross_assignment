@@ -2,6 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AppTopBar from '../components/AppTopBar';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import MentorHomeScreen from '../screens/mentor/MentorHomeScreen';
 import MentorScheduleScreen from '../screens/mentor/MentorScheduleScreen';
@@ -11,6 +12,8 @@ import ProfileScreen from '../screens/common/ProfileScreen';
 const Tab = createBottomTabNavigator();
 
 export default function MentorTabNavigator() {
+    const insets = useSafeAreaInsets();
+
     return (
         <Tab.Navigator
             screenOptions={{
@@ -18,8 +21,8 @@ export default function MentorTabNavigator() {
                 tabBarActiveTintColor: '#7B61FF',
                 tabBarInactiveTintColor: '#9CA3AF',
                 tabBarStyle: {
-                    height: 64,
-                    paddingBottom: 8,
+                    height: 64 + insets.bottom,
+                    paddingBottom: 8 + insets.bottom,
                     paddingTop: 8,
                 },
             }}

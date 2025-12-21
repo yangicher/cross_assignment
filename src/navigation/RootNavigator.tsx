@@ -2,8 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 
 import AuthStackNavigator from './AuthStackNavigator';
-import MentorTabNavigator from './MentorTabNavigator';
-import MentiTabNavigator from './MentiTabNavigator';
+import AppDrawerNavigator from './AppDrawerNavigator';
 
 import { useAuth } from '../state/AuthContext';
 
@@ -13,10 +12,7 @@ export default function RootNavigator() {
     return (
         <NavigationContainer>
             {!isLoggedIn && <AuthStackNavigator />}
-
-            {isLoggedIn && role === 'mentor' && <MentorTabNavigator />}
-
-            {isLoggedIn && role === 'menti' && <MentiTabNavigator />}
+            {isLoggedIn && role && <AppDrawerNavigator role={role} />}
         </NavigationContainer>
     );
 }

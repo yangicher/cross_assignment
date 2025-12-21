@@ -1,6 +1,10 @@
 export type RootStackParamList = {
     Home: undefined;
-    Form: {
+    MentorForm: {
+        step: number;
+        totalSteps: number;
+    };
+    MentiForm: {
         step: number;
         totalSteps: number;
     };

@@ -1,52 +1,35 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 
-export type UserRole = 'mentor' | 'menti';
+export type Role = 'mentor' | 'menti';
 
-type AuthState = {
+type AuthContextValue = {
     isLoggedIn: boolean;
-    role: UserRole | null;
-};
-
-type AuthContextType = AuthState & {
-    loginAsMentor: () => void;
-    loginAsMenti: () => void;
+    role: Role | null;
+    completeAuth: (role: Exclude<Role, null>) => void;
     logout: () => void;
 };
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [role, setRole] = useState<UserRole | null>(null);
+    const [role, setRole] = useState<Role | null>(null);
 
-    const loginAsMentor = () => {
-        setRole('mentor');
-        setIsLoggedIn(true);
-    };
-
-    const loginAsMenti = () => {
-        setRole('menti');
+    const completeAuth = (nextRole: Exclude<Role, null>) => {
+        setRole(nextRole);
         setIsLoggedIn(true);
     };
 
     const logout = () => {
-        setRole(null);
         setIsLoggedIn(false);
+        setRole(null);
     };
 
-    return (
-        <AuthContext.Provider
-            value={{
-                isLoggedIn,
-                role,
-                loginAsMentor,
-                loginAsMenti,
-                logout,
-            }}
-        >
-            {children}
-        </AuthContext.Provider>
+    const value = useMemo(
+        () => ({ isLoggedIn, role, completeAuth, logout }),
+        [isLoggedIn, role]
     );
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

@@ -10,7 +10,7 @@ import Header from '../components/Header';
 import RoleCard from '../components/RoleCard';
 import useFadeIn from '../hooks/useFadeIn';
 
-export default function SelectRoleScreen({ onSelect, onBack }) {
+export default function SelectRoleScreen({navigation}) {
     const fadeInContent = useFadeIn();
     return (
         <ImageBackground
@@ -22,7 +22,7 @@ export default function SelectRoleScreen({ onSelect, onBack }) {
 
             <View style={styles.screen}>
                 {/* HEADER */}
-                <Header title="Оберіть роль" onBack={onBack} />
+                <Header title="Оберіть роль" onBack={() => navigation.goBack()} />
 
                 {/* FADE-IN CONTENT */}
                 <Animated.View style={[styles.content, fadeInContent]}>
@@ -34,13 +34,13 @@ export default function SelectRoleScreen({ onSelect, onBack }) {
                         <RoleCard
                             title="MENTOR"
                             description="Ділитись досвідом та допомагати іншим"
-                            onPress={() => onSelect('mentor')}
+                            onPress={() => navigation.navigate('MentorForm', { step: 1, totalSteps: 2 })}
                         />
 
                         <RoleCard
                             title="MENTI"
                             description="Знайти ментора та розвиватись"
-                            onPress={() => onSelect('menti')}
+                            onPress={() => navigation.navigate('MentiForm', { step: 1, totalSteps: 3 })}
                         />
                     </View>
                 </Animated.View>

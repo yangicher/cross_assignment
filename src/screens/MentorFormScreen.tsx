@@ -11,6 +11,8 @@ import Header from '../components/Header';
 import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
 import useFadeIn from '../hooks/useFadeIn';
+import { useAuth } from '../state/AuthContext';
+
 import type { MentorFormData } from '../types/forms';
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -18,28 +20,25 @@ import type { RootStackParamList } from '../navigation/types';
 
 type Props = NativeStackScreenProps<
     RootStackParamList,
-    'Form'
+    'MentorForm'
 >;
 
-export default function MentorFormScreen({
-                                             navigation,
-                                             route,
-                                         }: Props) {
+export default function MentorFormScreen({ navigation, route }: Props) {
     const { step, totalSteps } = route.params;
+
     const fadeIn = useFadeIn();
 
     const [name, setName] = useState('');
     const [experience, setExperience] = useState('');
     const [stack, setStack] = useState('');
 
+    const { completeAuth } = useAuth();
+
     const handleNext = () => {
         const data: MentorFormData = { name, experience, stack };
         console.log('Mentor data:', data);
 
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'MainTabs' }],
-        });
+        completeAuth('mentor');
     };
 
     return (

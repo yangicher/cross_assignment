@@ -5,6 +5,7 @@ import { fetchMentors } from '../../api/api';
 import MentorItem from '../../components/MentorListItem';
 import { Mentor } from '../../models/Mentor';
 import { MentorsStackParamList } from '../../navigation/MentorsNavigator';
+import { useTheme } from '../../state/ThemeContext';
 
 type Props = NativeStackScreenProps<MentorsStackParamList, 'MentorsList'>;
 
@@ -12,6 +13,8 @@ const MentorsListTabScreen: React.FC<Props> = ({ navigation }) => {
     const [mentors, setMentors] = useState<Mentor[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+
+    const { colors } = useTheme();
 
     useEffect(() => {
         loadData();
@@ -35,7 +38,7 @@ const MentorsListTabScreen: React.FC<Props> = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: colors.card }]}>
             {loading && (
                 <View style={styles.center}>
                     <ActivityIndicator size="large" color="#0077b5" />

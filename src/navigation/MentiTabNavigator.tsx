@@ -5,7 +5,7 @@ import AppTopBar from '../components/AppTopBar';
 import MentiHomeScreen from '../screens/menti/MentiHomeScreen';
 import MentiCalendarScreen from '../screens/menti/MentiCalendarScreen';
 import MessagesScreen from '../screens/common/MessagesScreen';
-import SettingsScreen from '../screens/menti/SettingsScreen';
+import SettingsScreen from '../screens/common/SettingsScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MentorsNavigator from "./MentorsNavigator.tsx";

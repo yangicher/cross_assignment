@@ -8,6 +8,7 @@ import MentorHomeScreen from '../screens/mentor/MentorHomeScreen';
 import MentorScheduleScreen from '../screens/mentor/MentorScheduleScreen';
 import MessagesScreen from '../screens/common/MessagesScreen';
 import ProfileScreen from '../screens/common/ProfileScreen';
+import SettingsScreen from '../screens/common/SettingsScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -73,13 +74,13 @@ export default function MentorTabNavigator() {
             />
 
             <Tab.Screen
-                name="Profile"
-                component={ProfileScreen}
+                name="Settings"
+                component={SettingsScreen}
                 options={{
-                    tabBarLabel: 'Профіль',
+                    tabBarLabel: 'Налаштування',
                     tabBarIcon: ({ focused, color, size }) => (
                         <Ionicons
-                            name={focused ? 'person' : 'person-outline'}
+                            name={focused ? 'settings' : 'settings-outline'}
                             size={size}
                             color={color}
                         />

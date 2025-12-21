@@ -8,7 +8,7 @@ import { useAuth } from '../state/AuthContext';
 
 export default function RootNavigator() {
     const { isLoggedIn, role } = useAuth();
-
+    console.log(isLoggedIn, role);
     return (
         <NavigationContainer>
             {!isLoggedIn && <AuthStackNavigator />}

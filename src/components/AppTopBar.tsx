@@ -3,12 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
+import { useTheme } from '../state/ThemeContext';
 
 export default function AppTopBar({
                                       route,
                                       navigation,
                                   }: BottomTabHeaderProps) {
     const insets = useSafeAreaInsets();
+    const { colors } = useTheme();
 
     const titleMap: Record<string, string> = {
         Home: 'Головна',
@@ -22,13 +24,18 @@ export default function AppTopBar({
     const title = titleMap[route.name] ?? route.name;
 
     return (
-        <View style={[styles.container, { paddingTop: insets.top }]}>
+        <View
+            style={[
+                styles.container,
+                { paddingTop: insets.top, backgroundColor: colors.background, borderBottomColor: colors.border },
+            ]}
+        >
             <View style={styles.content}>
                 {/* LEFT */}
                 <View style={styles.side} />
 
                 {/* TITLE */}
-                <Text style={styles.title}>{title}</Text>
+                <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
 
                 {/* RIGHT */}
                 <TouchableOpacity
@@ -38,7 +45,7 @@ export default function AppTopBar({
                         navigation.getParent()?.getParent()?.navigate('NotificationSettingsModal');
                     }}
                 >
-                    <Ionicons name="notifications-outline" size={22} />
+                    <Ionicons name="notifications-outline" size={22} color={colors.text} />
                 </TouchableOpacity>
             </View>
         </View>

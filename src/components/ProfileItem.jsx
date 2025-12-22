@@ -1,11 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useTheme } from '../state/ThemeContext';
 
 export default function ProfileItem({ label, value }) {
+    const { colors } = useTheme();
+
     return (
-        <View style={styles.row}>
-            <Text style={styles.label}>{label}</Text>
-            <Text style={styles.value}>{value}</Text>
+        <View style={[styles.row, { borderBottomColor: colors.border }]}>
+            <Text style={[styles.label, { color: colors.subText }]}>{label}</Text>
+            <Text style={[styles.value, { color: colors.text }]}>{value}</Text>
         </View>
     );
 }

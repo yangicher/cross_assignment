@@ -5,6 +5,7 @@ import { Mentor } from '../models/Mentor';
 
 import MentorDetailsScreen from '../screens/MentorDetailsScreen';
 import MentorsListTabScreen from "../screens/menti/MentorsListTabScreen.tsx";
+import { useTheme } from '../state/ThemeContext';
 
 export type MentorsStackParamList = {
     MentorsList: undefined;
@@ -14,12 +15,20 @@ export type MentorsStackParamList = {
 const Stack = createNativeStackNavigator<MentorsStackParamList>();
 
 export default function MentorsNavigator() {
+    const { colors } = useTheme();
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle: { backgroundColor: colors.background },
+                headerTintColor: colors.text,
+                headerTitleStyle: { color: colors.text },
+                contentStyle: { backgroundColor: colors.background },
+            }}
+        >
             <Stack.Screen
                 name="MentorsList"
                 component={MentorsListTabScreen}
-                options={{ title: 'Ментори', headerBackTitle: 'Назад' }}
+                options={{ title: 'Список менторів', headerBackTitle: 'Назад' }}
             />
             <Stack.Screen
                 name="MentorDetails"

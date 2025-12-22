@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useTheme } from '../../state/ThemeContext';
 
 export default function NotificationSettingsScreen() {
+    const { colors } = useTheme();
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Notification settings</Text>
+        <View style={[styles.container, { backgroundColor: colors.background }]}>
+            <Text style={[styles.title, { color: colors.text }]}>Notification settings</Text>
         </View>
     );
 }

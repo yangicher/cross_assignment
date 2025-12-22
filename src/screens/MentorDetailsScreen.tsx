@@ -2,35 +2,37 @@ import React, { useEffect } from 'react';
 import { View, Text, Image, StyleSheet, Button, ScrollView } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { MentorsStackParamList } from '../navigation/MentorsNavigator';
+import { useTheme } from '../state/ThemeContext';
 
 type Props = NativeStackScreenProps<MentorsStackParamList, 'MentorDetails'>;
 
 const MentorDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     const { mentor } = route.params;
+    const { colors } = useTheme();
 
     useEffect(() => {
         navigation.setOptions({ title: mentor.fullName });
     }, [mentor, navigation]);
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView contentContainerStyle={[styles.container, { backgroundColor: colors.background }]}>
             <Image source={{ uri: mentor.largeAvatar }} style={styles.avatar} />
 
-            <Text style={styles.name}>{mentor.fullName}</Text>
-            <Text style={styles.location}>📍 {mentor.location}</Text>
+            <Text style={[styles.name, { color: colors.text }]}>{mentor.fullName}</Text>
+            <Text style={[styles.location, { color: colors.subText }]}>📍 {mentor.location}</Text>
 
-            <View style={styles.card}>
+            <View style={[styles.card, { backgroundColor: colors.card }]}>
                 <View style={styles.row}>
-                    <Text style={styles.label}>Email:</Text>
-                    <Text style={styles.value}>{mentor.email}</Text>
+                    <Text style={[styles.label, { color: colors.subText }]}>Email:</Text>
+                    <Text style={[styles.value, { color: colors.text }]}>{mentor.email}</Text>
                 </View>
                 <View style={styles.row}>
-                    <Text style={styles.label}>Телефон:</Text>
-                    <Text style={styles.value}>{mentor.phone}</Text>
+                    <Text style={[styles.label, { color: colors.subText }]}>Телефон:</Text>
+                    <Text style={[styles.value, { color: colors.text }]}>{mentor.phone}</Text>
                 </View>
                 <View style={styles.row}>
-                    <Text style={styles.label}>ID:</Text>
-                    <Text style={styles.value}>{mentor.id}</Text>
+                    <Text style={[styles.label, { color: colors.subText }]}>ID:</Text>
+                    <Text style={[styles.value, { color: colors.text }]}>{mentor.id}</Text>
                 </View>
             </View>
 

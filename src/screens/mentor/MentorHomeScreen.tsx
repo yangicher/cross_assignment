@@ -1,11 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useTheme } from '../../state/ThemeContext';
 
 export default function MentorHomeScreen() {
+    const { colors } = useTheme();
+
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: colors.background }]}>
             <View style={styles.content}>
-                <Text>Mentor Home</Text>
+                <Text style={{ color: colors.text }}>Mentor Home</Text>
             </View>
         </View>
     );

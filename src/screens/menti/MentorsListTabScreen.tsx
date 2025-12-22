@@ -37,7 +37,7 @@ const MentorsListTabScreen: React.FC<Props> = ({ navigation }) => {
         if (error && list.length === 0) {
             return (
                 <View style={styles.center}>
-                    <Text style={{ color: 'red', marginBottom: 10 }}>{error}</Text>
+                    <Text style={{ color: colors.danger, marginBottom: 10 }}>{error}</Text>
                     <Button title="Спробувати знову" onPress={handleRefresh} />
                 </View>
             );

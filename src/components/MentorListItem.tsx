@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Mentor } from '../models/Mentor';
+import { useTheme } from '../state/ThemeContext';
 
 interface MentorItemProps {
     mentor: Mentor;
@@ -8,16 +9,25 @@ interface MentorItemProps {
 }
 
 const MentorListItem: React.FC<MentorItemProps> = ({ mentor, onPress }) => {
+    const { colors } = useTheme();
+
     return (
-        <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.7}>
+        <TouchableOpacity
+            style={[
+                styles.card,
+                { backgroundColor: colors.card, shadowColor: colors.text },
+            ]}
+            onPress={onPress}
+            activeOpacity={0.7}
+        >
             <Image
                 source={{ uri: mentor.avatar }}
-                style={styles.avatar}
+                style={[styles.avatar, { backgroundColor: colors.border }]}
             />
             <View style={styles.info}>
-                <Text style={styles.name}>{mentor.fullName}</Text>
-                <Text style={styles.email}>{mentor.email}</Text>
-                <Text style={styles.location}>📍 {mentor.location}</Text>
+                <Text style={[styles.name, { color: colors.text }]}>{mentor.fullName}</Text>
+                <Text style={[styles.email, { color: colors.subText }]}>{mentor.email}</Text>
+                <Text style={[styles.location, { color: colors.subText }]}>📍 {mentor.location}</Text>
             </View>
         </TouchableOpacity>
     );

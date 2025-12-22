@@ -6,6 +6,7 @@ import {
     StyleSheet,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTheme } from '../state/ThemeContext';
 
 export default function Header({
                                    title,
@@ -14,6 +15,7 @@ export default function Header({
                                    onBack,
                                }) {
     const insets = useSafeAreaInsets();
+    const { colors } = useTheme();
 
     return (
         <View style={[styles.container, { paddingTop: insets.top }]}>

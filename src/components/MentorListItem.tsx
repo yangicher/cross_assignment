@@ -75,4 +75,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MentorListItem;
+export default React.memo(MentorListItem);

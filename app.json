@@ -1,13 +1,36 @@
 {
-  "name": "menti",
-  "displayName": "menti",
-  "ios": {
-    "bundleIdentifier": "com.anonymous.menti"
-  },
   "expo": {
-    "newArchEnabled": true,
+    "name": "menti",
+    "slug": "menti",
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "bundleIdentifier": "com.anonymous.menti"
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.menti",
+      "jsEngine": "jsc"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "jsEngine": "jsc"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+
+    "jsEngine": "jsc",
+    "newArchEnabled": true
   }
 }

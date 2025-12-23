@@ -4,14 +4,14 @@ import {
     Text,
     StyleSheet,
     ImageBackground,
-    Animated,
 } from 'react-native';
+import Animated from 'react-native-reanimated';
 import Header from '../components/Header';
 import RoleCard from '../components/RoleCard';
 import useFadeIn from '../hooks/useFadeIn';
 
 export default function SelectRoleScreen({navigation}) {
-    const fadeInContent = useFadeIn();
+    const fadeInContent = useFadeIn({delay: 200});
     return (
         <ImageBackground
             source={require('../assets/select-bg.png')}

@@ -5,8 +5,8 @@ import {
     StyleSheet,
     ImageBackground,
     Image,
-    Animated,
 } from 'react-native';
+import Animated from 'react-native-reanimated';
 import GradientCustomButton from '../components/GradientCustomButton';
 import CustomButton from '../components/CustomButton';
 import useFadeIn from '../hooks/useFadeIn';
@@ -16,7 +16,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 type Props = NativeStackScreenProps<AuthStackParamList, 'Start'>;
 
 export default function StartScreen({ navigation }: Props) {
-    const fadeInButtons = useFadeIn();
+    const fadeInButtons = useFadeIn({delay: 500});
     return (
         <ImageBackground
             source={require('../assets/start-bg.png')}

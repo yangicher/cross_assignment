@@ -4,9 +4,8 @@ import {
     StyleSheet,
     ScrollView,
     ImageBackground,
-    Animated,
 } from 'react-native';
-
+import Animated from 'react-native-reanimated';
 import Header from '../components/Header';
 import InputField from '../components/InputField';
 import CustomButton from '../components/CustomButton';
@@ -25,7 +24,7 @@ type Props = NativeStackScreenProps<
 
 export default function MentiFormScreen({ navigation, route }: Props) {
     const { step, totalSteps } = route.params;
-    const fadeIn = useFadeIn();
+    const fadeIn = useFadeIn({delay: 200});
 
     const [name, setName] = useState('');
     const [goal, setGoal] = useState('');

@@ -1,33 +1,35 @@
-import { useRef, useEffect } from 'react';
-import { Animated } from 'react-native';
+import { useEffect } from 'react';
+import {
+    useSharedValue,
+    useAnimatedStyle,
+    withTiming,
+    withDelay,
+    interpolate
+} from 'react-native-reanimated';
 
 export default function useFadeIn({
                                       duration = 450,
                                       offset = 12,
                                       delay = 0,
                                   } = {}) {
-    const opacity = useRef(new Animated.Value(0)).current;
+    const progress = useSharedValue(0);
 
     useEffect(() => {
-        Animated.timing(opacity, {
-            toValue: 1,
-            duration,
-            delay,
-            useNativeDriver: true,
-        }).start();
-    }, [opacity, duration, delay]);
+        progress.value = withDelay(delay, withTiming(1, { duration }));
+    }, [delay, duration]);
 
-    const animatedStyle = {
-        opacity,
-        transform: [
-            {
-                translateY: opacity.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [offset, 0],
-                }),
-            },
-        ],
-    };
-
-    return animatedStyle;
+    return useAnimatedStyle(() => {
+        return {
+            opacity: progress.value,
+            transform: [
+                {
+                    translateY: interpolate(
+                        progress.value,
+                        [0, 1],
+                        [offset, 0]
+                    ),
+                },
+            ],
+        };
+    });
 }

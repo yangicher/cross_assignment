@@ -11,6 +11,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MentorsNavigator from "./MentorsNavigator.tsx";
 import { useTheme } from '../state/ThemeContext';
 
+import BookingScreen from '../screens/menti/BookingScreen';
+
 const Tab = createBottomTabNavigator();
 
 export default function MentiTabNavigator() {

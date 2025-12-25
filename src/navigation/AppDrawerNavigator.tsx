@@ -3,6 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import MentorTabNavigator from './MentorTabNavigator';
 import MentiTabNavigator from './MentiTabNavigator';
+import {useAuth} from "@/src/state/AuthContext";
 
 export type AppDrawerParamList = {
     MainTabs: undefined;
@@ -10,12 +11,9 @@ export type AppDrawerParamList = {
 
 const Drawer = createDrawerNavigator<AppDrawerParamList>();
 
-type Props = {
-    role: 'mentor' | 'menti';
-};
-
-export default function AppDrawerNavigator({ role }: Props) {
-    console.log("AppDrawerNavigator role: " + role);
+export default function AppDrawerNavigator() {
+    const { role } = useAuth(); 
+    console.log('AppRootStackNavigator role:', role);
     return (
         <Drawer.Navigator
             screenOptions={{
@@ -26,7 +24,7 @@ export default function AppDrawerNavigator({ role }: Props) {
         >
             <Drawer.Screen
                 name="MainTabs"
-                component={role === 'mentor' ? MentorTabNavigator : MentiTabNavigator}
+                component={role === 'MENTOR' ? MentorTabNavigator : MentiTabNavigator}
             />
         </Drawer.Navigator>
     );

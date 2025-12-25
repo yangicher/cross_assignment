@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, 
 import client from '../../api/client';
 import { useAuth } from '../../state/AuthContext';
 
-const MentiHomeScreen = ({ navigation }: any) => {
+const HomeScreen = ({ navigation }: any) => {
     const [mentors, setMentors] = useState([]);
     const [loading, setLoading] = useState(true);
     const { logout } = useAuth();
@@ -50,6 +50,7 @@ const MentiHomeScreen = ({ navigation }: any) => {
                     ListEmptyComponent={<Text style={{textAlign:'center', marginTop: 20}}>Менторів поки немає 😔</Text>}
                 />
             )}
+            <Button title="Вийти" color="red" onPress={logout} />
         </View>
     );
 };
@@ -64,4 +65,4 @@ const styles = StyleSheet.create({
     buttonText: { color: 'white', fontWeight: 'bold' }
 });
 
-export default MentiHomeScreen;
+export default HomeScreen;

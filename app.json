@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "menti",
+    "name": "Menti",
     "slug": "menti",
     "version": "0.0.1",
     "orientation": "portrait",
@@ -15,22 +15,24 @@
       "**/*"
     ],
     "ios": {
+      "buildNumber": "0.0.1",
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.menti",
-      "jsEngine": "jsc"
+      "bundleIdentifier": "com.platform.menti",
+      "usesNonExemptEncryption": false
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "jsEngine": "jsc"
+      "package": "com.platform.menti"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-
-    "jsEngine": "jsc",
-    "newArchEnabled": true
+    "newArchEnabled": true,
+    "plugins": [
+      "expo-secure-store"
+    ]
   }
 }

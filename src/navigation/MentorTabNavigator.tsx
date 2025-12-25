@@ -10,12 +10,15 @@ import MessagesScreen from '../screens/common/MessagesScreen';
 import SettingsScreen from '../screens/common/SettingsScreen';
 import { useTheme } from '../state/ThemeContext';
 
+import MentorProfileScreen from '../screens/mentor/MentorProfileScreen';
+import MentorDashboardScreen from '../screens/mentor/MentorDashboardScreen';
+
 const Tab = createBottomTabNavigator();
 
 export default function MentorTabNavigator() {
     const insets = useSafeAreaInsets();
     const { colors } = useTheme();
-
+    
     return (
         <Tab.Navigator
             screenOptions={{
@@ -33,7 +36,7 @@ export default function MentorTabNavigator() {
         >
             <Tab.Screen
                 name="Home"
-                component={MentorHomeScreen}
+                component={MentorDashboardScreen}
                 options={{
                     tabBarLabel: 'Головна',
                     tabBarIcon: ({ focused, color, size }) => (
@@ -78,7 +81,7 @@ export default function MentorTabNavigator() {
 
             <Tab.Screen
                 name="Settings"
-                component={SettingsScreen}
+                component={MentorProfileScreen}
                 options={{
                     tabBarLabel: 'Налаштування',
                     tabBarIcon: ({ focused, color, size }) => (

@@ -4,7 +4,6 @@ import AppTopBar from '../components/AppTopBar';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import MentorHomeScreen from '../screens/mentor/MentorHomeScreen';
 import MentorScheduleScreen from '../screens/mentor/MentorScheduleScreen';
 import MessagesScreen from '../screens/common/MessagesScreen';
 import SettingsScreen from '../screens/common/SettingsScreen';
@@ -12,6 +11,7 @@ import { useTheme } from '../state/ThemeContext';
 
 import MentorProfileScreen from '../screens/mentor/MentorProfileScreen';
 import MentorDashboardScreen from '../screens/mentor/MentorDashboardScreen';
+import ScheduleScreen from "@/src/screens/common/ScheduleScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -51,7 +51,7 @@ export default function MentorTabNavigator() {
 
             <Tab.Screen
                 name="Schedule"
-                component={MentorScheduleScreen}
+                component={ScheduleScreen}
                 options={{
                     tabBarLabel: 'Розклад',
                     tabBarIcon: ({ focused, color, size }) => (

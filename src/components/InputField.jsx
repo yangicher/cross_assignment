@@ -15,6 +15,7 @@ export default function InputField({
                 placeholder={placeholder}
                 value={value}
                 onChangeText={onChangeText}
+                autoCapitalize="none"
                 placeholderTextColor="#9A9AA0"
             />
         </View>

@@ -10,8 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MentorsNavigator from "./MentorsNavigator.tsx";
 import { useTheme } from '../state/ThemeContext';
-
-import BookingScreen from '../screens/menti/BookingScreen';
+import ScheduleScreen from "@/src/screens/common/ScheduleScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -51,9 +50,9 @@ export default function MentiTabNavigator() {
 
             <Tab.Screen
                 name="Calendar"
-                component={MentiCalendarScreen}
+                component={ScheduleScreen}
                 options={{
-                    tabBarLabel: 'Календар',
+                    tabBarLabel: 'Мої уроки',
                     tabBarIcon: ({ focused, color, size }) => (
                         <Ionicons
                             name={focused ? 'calendar' : 'calendar-outline'}

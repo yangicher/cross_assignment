@@ -27,18 +27,12 @@ export default function MentiFormScreen({ navigation, route }: Props) {
     const fadeIn = useFadeIn({delay: 200});
 
     const [name, setName] = useState('');
-    const [goal, setGoal] = useState('');
-    const [level, setLevel] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [role, setRole] = useState<'MENTOR' | 'MENTEE'>('MENTEE');
 
-    const { completeAuth } = useAuth();
+    const { register, isLoading } = useAuth();
     
-    const handleNext = () => {
-        const data: MentiFormData = { name, goal, level };
-        console.log('Mentor data:', data);
-
-        completeAuth('menti');
-    };
-
     return (
         <ImageBackground
             source={require('../assets/select-bg.png')}
@@ -48,7 +42,7 @@ export default function MentiFormScreen({ navigation, route }: Props) {
 
             <View style={styles.screen}>
                 <Header
-                    title="Анкета менти"
+                    title="Менті"
                     step={step}
                     totalSteps={totalSteps}
                     onBack={() => navigation.goBack()}
@@ -56,30 +50,13 @@ export default function MentiFormScreen({ navigation, route }: Props) {
 
                 <Animated.View style={[styles.content, fadeIn]}>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <InputField
-                            label="Імʼя"
-                            placeholder={"name"}
-                            value={name}
-                            onChangeText={setName}
-                        />
-
-                        <InputField
-                            label="Ціль навчання"
-                            placeholder={"goal"}
-                            value={goal}
-                            onChangeText={setGoal}
-                        />
-
-                        <InputField
-                            label="Рівень"
-                            placeholder={"level"}
-                            value={level}
-                            onChangeText={setLevel}
-                        />
+                        <InputField label="Імʼя" placeholder={"name"} value={name} onChangeText={setName} />
+                        <InputField label="Email" placeholder={"email"} value={email} onChangeText={setEmail} />
+                        <InputField label="Пароль" placeholder={"password"} value={password} onChangeText={setPassword} />
 
                         <CustomButton
                             title="Продовжити"
-                            onPress={handleNext}
+                            onPress={() => register(name, email, password, role)}
                             style={{ marginTop: 24 }}
                         />
                     </ScrollView>

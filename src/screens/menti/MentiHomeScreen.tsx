@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Button } from 'react-native';
 import client from '../../api/client';
 import { useAuth } from '../../state/AuthContext';
+import { Ionicons } from '@expo/vector-icons';
 
 const MentiHomeScreen = ({ navigation }: any) => {
     const [mentors, setMentors] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { logout } = useAuth();
 
     const fetchMentors = async () => {
         try {
             const response = await client.get('/mentors');
+            console.log('Mentors/ ', response.data);
             setMentors(response.data);
         } catch (e) {
             console.log(e);
@@ -31,7 +32,7 @@ const MentiHomeScreen = ({ navigation }: any) => {
 
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('Booking', { mentorId: item.user.id, mentorName: item.user.name })}
+                onPress={() => navigation.navigate('Booking', { mentorId: item.userId, mentorName: item.user.name })}
             >
                 <Text style={styles.buttonText}>Забронювати урок</Text>
             </TouchableOpacity>

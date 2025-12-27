@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import client from '../../api/client';
+import {useAuth} from "@/src/state/AuthContext";
 
 const MentorProfileScreen = ({ navigation }: any) => {
     const [bio, setBio] = useState('');
@@ -22,6 +23,8 @@ const MentorProfileScreen = ({ navigation }: any) => {
             Alert.alert('Помилка', 'Не вдалося зберегти профіль');
         }
     };
+
+    const { logout } = useAuth();
 
     return (
         <View style={styles.container}>
@@ -52,6 +55,11 @@ const MentorProfileScreen = ({ navigation }: any) => {
             />
 
             <Button title="Зберегти профіль" onPress={saveProfile} />
+
+
+            <View style={{ marginTop: 20 }}>
+                <Button title="Вийти" color="red" onPress={logout} />
+            </View>
         </View>
     );
 };

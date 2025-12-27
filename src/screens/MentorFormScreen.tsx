@@ -12,8 +12,6 @@ import CustomButton from '../components/CustomButton';
 import useFadeIn from '../hooks/useFadeIn';
 import { useAuth } from '../state/AuthContext';
 
-import type { MentorFormData } from '../types/forms';
-
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 
@@ -28,18 +26,12 @@ export default function MentorFormScreen({ navigation, route }: Props) {
     const fadeIn = useFadeIn({delay: 200});
 
     const [name, setName] = useState('');
-    const [experience, setExperience] = useState('');
-    const [stack, setStack] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [role, setRole] = useState<'MENTOR' | 'MENTEE'>('MENTOR');
 
-    const { completeAuth } = useAuth();
-
-    const handleNext = () => {
-        const data: MentorFormData = { name, experience, stack };
-        console.log('Mentor data:', data);
-
-        completeAuth('mentor');
-    };
-
+    const { register, isLoading } = useAuth();
+    
     return (
         <ImageBackground
             source={require('../assets/select-bg.png')}
@@ -49,7 +41,7 @@ export default function MentorFormScreen({ navigation, route }: Props) {
 
             <View style={styles.screen}>
                 <Header
-                    title="Анкета ментора"
+                    title="Ментор"
                     step={step}
                     totalSteps={totalSteps}
                     onBack={() => navigation.goBack()}
@@ -58,12 +50,12 @@ export default function MentorFormScreen({ navigation, route }: Props) {
                 <Animated.View style={[styles.content, fadeIn]}>
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <InputField label="Імʼя" placeholder={"name"} value={name} onChangeText={setName} />
-                        <InputField label="Досвід" placeholder={"exp"} value={experience} onChangeText={setExperience} />
-                        <InputField label="Стек" placeholder={"stack"} value={stack} onChangeText={setStack} />
+                        <InputField label="Email" placeholder={"email"} value={email} onChangeText={setEmail} />
+                        <InputField label="Пароль" placeholder={"password"} value={password} onChangeText={setPassword} />
 
                         <CustomButton
                             title="Продовжити"
-                            onPress={handleNext}
+                            onPress={() => register(name, email, password, role)}
                             style={{ marginTop: 24 }}
                         />
                     </ScrollView>

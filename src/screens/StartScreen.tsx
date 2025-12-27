@@ -50,7 +50,7 @@ export default function StartScreen({ navigation }: Props) {
                         title="Вже маєте обліковий запис? Увійти"
                         size="lg"
                         variant="ghost"
-                        onPress={() => {}}
+                        onPress={() => navigation.navigate('Login')}
                         style={{ marginTop: 12 }}
                     />
                 </Animated.View>

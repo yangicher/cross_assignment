@@ -25,6 +25,7 @@ export default function AppRootStackNavigator() {
                 component={BookingScreen}
                 options={{
                     presentation: 'modal',
+                    contentStyle: { backgroundColor: 'transparent' },
                     headerShown: false
                 }}
             />

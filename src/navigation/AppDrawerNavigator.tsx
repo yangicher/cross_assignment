@@ -13,7 +13,6 @@ const Drawer = createDrawerNavigator<AppDrawerParamList>();
 
 export default function AppDrawerNavigator() {
     const { role } = useAuth(); 
-    console.log('AppRootStackNavigator role:', role);
     return (
         <Drawer.Navigator
             screenOptions={{

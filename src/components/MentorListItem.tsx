@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Mentor } from '../models/Mentor';
 import { useTheme } from '../state/ThemeContext';
+import {Ionicons} from "@expo/vector-icons";
 
 interface MentorItemProps {
     mentor: Mentor;
@@ -20,14 +21,25 @@ const MentorListItem: React.FC<MentorItemProps> = ({ mentor, onPress }) => {
             onPress={onPress}
             activeOpacity={0.7}
         >
-            <Image
-                source={{ uri: mentor.avatar }}
-                style={[styles.avatar, { backgroundColor: colors.border }]}
-            />
+            {/*<Image*/}
+            {/*    source={{ uri: mentor.avatar }}*/}
+            {/*    style={[styles.avatar, { backgroundColor: colors.border }]}*/}
+            {/*/>*/}
+            <View style={[styles.avatar, { backgroundColor: colors.border }]}>
+            </View>
             <View style={styles.info}>
-                <Text style={[styles.name, { color: colors.text }]}>{mentor.fullName}</Text>
-                <Text style={[styles.email, { color: colors.subText }]}>{mentor.email}</Text>
-                <Text style={[styles.location, { color: colors.subText }]}>📍 {mentor.location}</Text>
+                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                    <Text style={[styles.name, { color: colors.text, flex: 1 }]}>{mentor.fullName}</Text>
+                    {mentor.hourlyRate && (
+                        <Text style={[styles.price, { color: 'green' }]}>${mentor.hourlyRate}/г</Text>
+                    )}
+                </View>
+
+                <Text numberOfLines={1} style={[styles.skills, { color: colors.subText }]}>
+                    {mentor.skills && mentor.skills.length > 0
+                        ? mentor.skills.join(', ')
+                        : 'Немає вказаних навичок'}
+                </Text>
             </View>
         </TouchableOpacity>
     );
@@ -36,23 +48,20 @@ const MentorListItem: React.FC<MentorItemProps> = ({ mentor, onPress }) => {
 const styles = StyleSheet.create({
     card: {
         flexDirection: 'row',
-        backgroundColor: '#fff',
         padding: 15,
         marginBottom: 12,
         borderRadius: 12,
         alignItems: 'center',
-        shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 3,
     },
     avatar: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
+        width: 50,
+        height: 50,
+        borderRadius: 25,
         marginRight: 15,
-        backgroundColor: '#e1e4e8',
     },
     info: {
         flex: 1,
@@ -61,17 +70,18 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#333',
         marginBottom: 4,
     },
-    email: {
+    price: {
         fontSize: 14,
-        color: '#666',
+        fontWeight: 'bold',
+    },
+    skills: {
+        fontSize: 13,
         marginBottom: 2,
     },
-    location: {
+    email: {
         fontSize: 12,
-        color: '#888',
     },
 });
 

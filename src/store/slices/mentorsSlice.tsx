@@ -1,15 +1,38 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { fetchMentors } from '../../api/api';
+import client from '../../api/client';
 import { Mentor } from '../../models/Mentor';
 
+// Async thunk для отримання менторів з сервера
 export const getMentors = createAsyncThunk<Mentor[]>(
     'mentors/getMentors',
     async (_, { rejectWithValue }) => {
         try {
-            const data = await fetchMentors();
-            return data;
-        } catch (error) {
-            return rejectWithValue('Не вдалося завантажити список менторів');
+            // Виконуємо запит на ваш бекенд
+            const response = await client.get('/mentors');
+
+            // Якщо сервер повертає масив менторів напряму:
+            // return response.data;
+
+            // АЛЕ: Раніше ви казали, що endpoint /mentors повертає список об'єктів, 
+            // де дані юзера вкладені (наприклад, { userId, user: { name... }, skills... }).
+            // Тому тут треба мапити дані під вашу модель Mentor, якщо вона відрізняється.
+
+            // Приклад мапінгу (адаптуйте під реальну відповідь сервера):
+            const mappedData = response.data.map((item: any) => ({
+                id: item.userId.toString(),
+                fullName: item.user.name || item.user.email,
+                email: item.user.email,
+                avatar: 'https://i.pravatar.cc/150?u=' + item.userId,
+                location: 'Online',
+                skills: item.skills,
+                hourlyRate: item.hourlyRate,
+                bio: item.bio
+            }));
+
+            return mappedData;
+        } catch (error: any) {
+            console.error('Error fetching mentors:', error);
+            return rejectWithValue(error.response?.data?.message || 'Не вдалося завантажити список менторів');
         }
     }
 );
@@ -67,6 +90,5 @@ const mentorsSlice = createSlice({
     },
 });
 
-export const { clearMentors } = mentorsSlice.actions;
-export const { toggleFavorite } = mentorsSlice.actions;
+export const { clearMentors, toggleFavorite } = mentorsSlice.actions;
 export default mentorsSlice.reducer;

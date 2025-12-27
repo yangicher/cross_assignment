@@ -45,7 +45,7 @@ const MentorsListTabScreen: React.FC<Props> = ({ navigation }) => {
         />
     ), [handlePressMentor]);
 
-    const keyExtractor = useCallback((item: Mentor) => item.id, []);
+    const keyExtractor = useCallback((item: Mentor) => item.id.toString(), []);
     if (loading && list.length === 0) {
         return (
             <View style={[styles.center, { backgroundColor: colors.background }]}>

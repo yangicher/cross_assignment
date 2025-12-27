@@ -33,9 +33,10 @@ export default function AppRootStackNavigator() {
                 name="NotificationSettingsModal"
                 component={NotificationSettingsScreen}
                 options={{
-                    presentation: 'modal',
-                    animation: 'slide_from_bottom',
-                    gestureEnabled: true,
+                    presentation: 'transparentModal',
+                    animation: 'fade',
+                    headerShown: false,
+                    contentStyle: { backgroundColor: 'transparent' },
                 }}
             />
         </Stack.Navigator>
